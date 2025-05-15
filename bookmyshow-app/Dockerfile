@@ -1,5 +1,5 @@
 # Use Node.js 18 (or your Jenkins-configured version)
-FROM node:18-alpine
+FROM node:18
 
 # Set working directory
 WORKDIR /app
@@ -7,9 +7,10 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package.json package-lock.json ./
 
+RUN npm install chokidar@3 --save-dev
 # Force install a compatible PostCSS version to fix the issue
 RUN npm install postcss@8.4.21 postcss-safe-parser@6.0.0 --legacy-peer-deps
-
+ 
 # Install dependencies
 RUN npm install
 
